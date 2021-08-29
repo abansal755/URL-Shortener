@@ -42,7 +42,8 @@ app.post('/', wrapAsync(async (req,res) => {
         urlDoc = new URL({url, shortened});
         await urlDoc.save();
     }
-    res.render('shortened',{urlDoc});
+    const domain = process.env.DOMAIN || 'localhost:3000';
+    res.render('shortened',{urlDoc, domain});
 }))
 
 app.get('/:shortened', wrapAsync(async (req,res) => {
