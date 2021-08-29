@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const AppError = require('./utils/AppError');
 const wrapAsync = require('./utils/wrapAsync');
 const URL = require('./models/URL');
+require('dotenv').config();
 
 const Radix = require('radix.js');
 const radix = new Radix('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
