@@ -19,7 +19,7 @@ const URLSchema = new mongoose.Schema({
     }
 });
 
-URLSchema.pre('validate', (next) => {
+URLSchema.pre('save', function(next) {
     if(validUrl.isWebUri(this.url)) next();
     else throw new AppError('Invalid URL', 400);
 })
