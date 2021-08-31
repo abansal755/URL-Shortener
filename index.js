@@ -6,6 +6,8 @@ const mongoose = require('mongoose');
 const AppError = require('./utils/AppError');
 const wrapAsync = require('./utils/wrapAsync');
 const URL = require('./models/URL');
+const https = require('https');
+const fs = require('fs');
 require('dotenv').config();
 
 const Radix = require('radix.js');
@@ -13,7 +15,14 @@ const radix = new Radix('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRS
 
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT,() => console.log(`Listening to port ${PORT} ...`));
+if(process.env.NODE_ENV === 'production'){
+    const sslServer = https.createServer({
+        key: fs.readFileSync(path.join(__dirname, '../cert/key.pem')),
+        cert: fs.readFileSync(path.join(__dirname, '../cert/cert.pem'))
+    }, app);
+    sslServer.listen(PORT,() => console.log(`Listening to port ${PORT} ...`));
+}
+else app.listen(PORT,() => console.log(`Listening to port ${PORT} ...`));
 
 (async function(){
     try{
