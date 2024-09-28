@@ -1,0 +1,8 @@
+services:
+  url-shortener:
+    build: .
+    environment:
+      - PORT=${URL_SHORTENER_PORT}
+      - DB_URL=${URL_SHORTENER_DB_URL}
+      - DOMAIN=${URL_SHORTENER_DOMAIN}
+    network_mode: host
